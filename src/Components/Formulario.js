@@ -1,9 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 function Formulario(){
 
+    const  [busqueda, guardarBusqueda] = useState({
+        ciudad: "",
+        pais: ""
+    });
+
     const handleChange = e =>{
-        
+
     };
     return (
         <form>
