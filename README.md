@@ -1,4 +1,4 @@
-### `Demo`
+## `Demo`
 Open [https://clima-app-react1.netlify.com/](https://clima-app-react1.netlify.com/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
