@@ -17,15 +17,20 @@ function App() {
       const appiID = '5d86ce1a8787938d9a4c3a89a5a8606d';
       const url =  `https://samples.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appiID}`;
 
-
-      const respuesta = await axios.get(
-                    {
-                      url:url, 
-                      crossDomain: true,
-                      "Content-Type": 'application/json'
-                    });
+      console.log(url);
+      axios.defaults.headers.common = {
+        ...axios.defaults.headers.common,
+        'Access-Control-Allow-Origin': 'http://localhost',
+        "Content-Type": 'application/json',
+     };
+     axios.defaults.preflightContinue = true;
+      const respuesta = await axios({
+                                      method: 'get',
+                                      url: url
+                                    });
+      console.log(respuesta);
       const resultado = await respuesta.json();
-      console.log(resultado);
+      //console.log(resultado);
     }
     consultarApi();
 
@@ -45,6 +50,7 @@ function App() {
       guardarCiudad(datos.ciudad);
       guardarPais(datos.pais);
       guardarError(false);
+      
   }
 
     //cargar un componente condicionalmente
