@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './Components/Header';
 import Formulario from './Components/Formulario';
 import Error from './Components/Error';
+import axios from 'axios';
 
 import './index.css';
 function App() {
@@ -9,7 +10,26 @@ function App() {
   const [ciudad, guardarCiudad] = useState('');
   const [pais, guardarPais] = useState('');
   const [error, guardarError] = useState(false);
+  useEffect(() =>{
 
+    if(ciudad === '') return;
+    const consultarApi = async () => {
+      const appiID = '5d86ce1a8787938d9a4c3a89a5a8606d';
+      const url =  `https://samples.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appiID}`;
+
+
+      const respuesta = await axios.get(
+                    {
+                      url:url, 
+                      crossDomain: true,
+                      "Content-Type": 'application/json'
+                    });
+      const resultado = await respuesta.json();
+      console.log(resultado);
+    }
+    consultarApi();
+
+  }, [ciudad, pais]);
 
   const datosConsulta = datos => {
     console.log(datos);
@@ -28,7 +48,6 @@ function App() {
   }
 
     //cargar un componente condicionalmente
-    console.log(error);
     let componente ;
     if(error){
       componente = <Error mensaje='Ambos campos son obligatorios' ></Error>
@@ -37,7 +56,6 @@ function App() {
       componente = null
       
     }
-    console.log(componente);
 
   return (
     <div className="App">
